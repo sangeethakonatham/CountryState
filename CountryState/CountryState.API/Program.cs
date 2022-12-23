@@ -1,4 +1,5 @@
 using CountryState.API.Data;
+using CountryState.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<CountryStateDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("CountryState"));
 });
+
+//injecting repositories into services
+builder.Services.AddScoped<ICountryRepository,CountryRepository>();
 
 
 var app = builder.Build();
