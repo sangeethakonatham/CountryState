@@ -21,6 +21,10 @@ builder.Services.AddDbContext<CountryStateDbContext>(options =>
 builder.Services.AddScoped<ICountryRepository,CountryRepository>();
 
 
+//injecting Automapper into services
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

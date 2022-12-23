@@ -4,6 +4,6 @@ namespace CountryState.API.Repositories
 {
     public interface ICountryRepository
     {
-        IEnumerable<Country> GetAll();
+        Task<IEnumerable<Country>> GetAllAsync();
     }
 }

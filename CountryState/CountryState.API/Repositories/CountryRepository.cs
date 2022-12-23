@@ -1,5 +1,6 @@
 ﻿using CountryState.API.Data;
 using CountryState.API.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CountryState.API.Repositories
@@ -12,9 +13,9 @@ namespace CountryState.API.Repositories
         {
             this.countryStateDbContext = countryStateDbContext;
         }
-        public IEnumerable<Country> GetAll()
+        public async Task<IEnumerable<Country>> GetAllAsync()
         {
-            return countryStateDbContext.Countries.ToList();
+            return await countryStateDbContext.Countries.ToListAsync();
         }
     }
 }

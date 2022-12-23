@@ -1,4 +1,5 @@
-﻿using CountryState.API.Repositories;
+﻿using AutoMapper;
+using CountryState.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountryState.API.Controllers
@@ -9,18 +10,24 @@ namespace CountryState.API.Controllers
     public class CountriesController : Controller
     {
         private readonly ICountryRepository countryRepository;
+        private readonly IMapper mapper;
+
 
         //constructor
-        public CountriesController(ICountryRepository countryRepository)
+        public CountriesController(ICountryRepository countryRepository,IMapper mapper)
         {
             this.countryRepository=countryRepository;
-            this.countryRepository = countryRepository;
+            this.mapper = mapper;
         }
+
+        
+
         [HttpGet]
-        public IActionResult GetAllCountries()
+        public async Task<IActionResult> GetAllCountries()
         {
-            var countries = countryRepository.GetAll();
-            return Ok(countries);
+            var countries = await countryRepository.GetAllAsync();
+            var countriesDTO = mapper.Map<List<Models.DTO.Country>>(countries);
+            return Ok(countriesDTO);
         }
     }
 }
