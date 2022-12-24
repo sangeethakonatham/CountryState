@@ -7,6 +7,6 @@ namespace CountryState.API.Repositories
         Task<IEnumerable<Country>> GetAllAsync();
         Task<Country> GetAsync(Guid id);
         Task<Country> AddAsync(Country country);
-
+        Task<Country> DeleteAsync(Guid id);
     }
 }

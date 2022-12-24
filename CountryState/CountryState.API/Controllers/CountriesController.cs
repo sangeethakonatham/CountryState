@@ -65,5 +65,29 @@ namespace CountryState.API.Controllers
 
         }
 
+        //Delete region by id
+        [HttpDelete]
+        [Route("{id:guid}")]
+
+        public async Task<IActionResult>DeleteCountryAsync(Guid id)
+        {
+
+            var country = await countryRepository.DeleteAsync(id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            var countryDTO = new Models.DTO.Country
+            {
+                Id=country.Id,  
+                Name = country.Name,
+                Population = country.Population
+
+            };
+            return Ok(countryDTO);  
+
+        }
+
     }
 }

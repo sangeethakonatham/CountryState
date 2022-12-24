@@ -23,6 +23,19 @@ namespace CountryState.API.Repositories
             
         }
 
+        public async Task<Country> DeleteAsync(Guid id)
+        {
+            var country = await countryStateDbContext.Countries.FirstOrDefaultAsync(x => x.Id == id);
+            if(country==null)
+            {
+                return null;
+            }
+            countryStateDbContext.Countries.Remove(country);
+            await countryStateDbContext.SaveChangesAsync();
+            return country;
+
+        }
+
         public async Task<IEnumerable<Country>> GetAllAsync()
         {
             return await countryStateDbContext.Countries.ToListAsync();
