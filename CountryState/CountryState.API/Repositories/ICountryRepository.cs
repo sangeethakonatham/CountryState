@@ -8,5 +8,6 @@ namespace CountryState.API.Repositories
         Task<Country> GetAsync(Guid id);
         Task<Country> AddAsync(Country country);
         Task<Country> DeleteAsync(Guid id);
+        Task<Country> UpdateAsync(Guid id,Country country);
     }
 }

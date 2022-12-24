@@ -45,5 +45,20 @@ namespace CountryState.API.Repositories
         {
             return await countryStateDbContext.Countries.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Country> UpdateAsync(Guid id, Country country)
+        {
+            var existingCountry = await countryStateDbContext.Countries.FirstOrDefaultAsync(x => x.Id == id);
+            if(existingCountry==null) 
+            {
+                return null;
+            }
+            
+            existingCountry.Name= country.Name;
+            existingCountry.Population= country.Population;
+            await countryStateDbContext.SaveChangesAsync();
+            return existingCountry;
+
+        }
     }
 }

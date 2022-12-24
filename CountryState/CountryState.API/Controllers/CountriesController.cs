@@ -89,5 +89,29 @@ namespace CountryState.API.Controllers
 
         }
 
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult>UpdateCountryAsync([FromRoute]Guid id, [FromBody]Models.DTO.UpdateCountryRequest updateCountryRequest)
+        {
+            var country = new Models.Domain.Country()
+            {
+                Name = updateCountryRequest.Name,
+                Population = updateCountryRequest.Population
+            };
+            country = await countryRepository.UpdateAsync(id,country);
+            if(country==null)
+            {
+                return NotFound();
+            }
+            var countryDTO = new Models.DTO.Country
+            {
+                Name = country.Name,
+                Population = country.Population
+            };
+            return Ok(countryDTO);
+
+        }
+
+
     }
 }
